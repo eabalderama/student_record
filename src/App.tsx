@@ -1,25 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import NotFound from './views/NotFound'
+import Home from './views/Home'
+import Edit from './views/Edit'
+import Providers from './Providers';
+import Add from './views/Add';
+import {Toaster} from 'react-hot-toast';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Providers>
+      <BrowserRouter>
+        <Routes>
+            <Route path='/' >
+              <Route index element={<Home />} />
+              <Route path='edit/:id' element={<Edit />} />
+              <Route path='add' element={<Add />} />
+            </Route>
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+      <Toaster toastOptions={{
+        className: '',
+        style: {
+          border: '1px solid #713200',
+          padding: '16px',
+          color: '#fff',
+          backgroundColor: '#571eb1',
+          fontFamily: '"Montserrat", sans-serif',
+        },
+      }} />
+    </Providers>
   );
 }
 
